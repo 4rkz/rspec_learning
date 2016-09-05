@@ -31,9 +31,7 @@ describe RunningWeek do
       end
     end
   end
-end
 
-describe RunningWeek do
   let(:monday_run) do
     Run.new(duration: 32, distance: 5.2, timestamp: "2015-01-12 20:30")
   end
@@ -60,6 +58,14 @@ describe RunningWeek do
   describe "#average_distance" do
     it "returns the average distance of all the week's runs" do
       expect(running_week.average_distance).to be_within(0.1).of(5.4)
+    end
+  end
+
+  describe "initialization" do
+    context "given a date which is not Monday" do
+      it "raises a 'day not Monday' exception" do
+        expect { RunningWeek.new(Date.parse("2015-01-13"), [])}.to raise_error("Day is not Monday")
+      end
     end
   end
 end
